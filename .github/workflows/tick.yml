@@ -1,0 +1,30 @@
+# One heartbeat tick: cron-job.org starts this every 5 min (POST .../actions/workflows/tick.yml/dispatches, see README.md).
+# A GitHub App token (1 h, revoked when the job ends) starts every due workflow in schedules.json. No schedule here: GitHub's
+# own schedules are what this replaces; each pipeline keeps its own as the backup.
+name: tick
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tick
+  cancel-in-progress: false
+jobs:
+  tick:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
+      - id: repos
+        run: echo "list=$(python3 tick.py repos)" >> "$GITHUB_OUTPUT"
+      - id: app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1   # v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: AlreadyOpen
+          repositories: ${{ steps.repos.outputs.list }}
+          permission-actions: write
+      - run: python3 tick.py
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
