@@ -1,4 +1,5 @@
 [
   {"repo": "AlreadyOpen/sa-transit", "workflow": "live.yml", "every_minutes": 15, "why": "Adelaide Metro GTFS-realtime snapshots"},
-  {"repo": "AlreadyOpen/world-flights", "workflow": "live.yml", "every_minutes": 15, "why": "Hong Kong aircraft from adsb.lol"}
+  {"repo": "AlreadyOpen/world-flights", "workflow": "live.yml", "every_minutes": 15, "why": "Hong Kong aircraft from adsb.lol"},
+  {"repo": "AlreadyOpen/hk-alerts", "workflow": "live.yml", "every_minutes": 15, "why": "Hong Kong AQHI and Government press releases (no CORS)"}
 ]
