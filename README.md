@@ -34,7 +34,7 @@ cron-job.org (every 5 min) --one token, this repo only--> tick.yml --GitHub App 
    headers `Authorization: Bearer <token>`, `Accept: application/vnd.github+json`, `X-GitHub-Api-Version: 2022-11-28`,
    body `{"ref":"main"}`. GitHub answers `204` with no body.
 
-Set up 2026-10-11: App `alreadyopen-heartbeat` (installed on sa-transit, world-flights and hk-alerts), token expires
+Set up 2026-10-11: App `alreadyopen-heartbeat` (installed on sa-transit and world-flights), token expires
 **2027-10-12**. On renewal, also move `X-GitHub-Api-Version` to the newest version
 (https://docs.github.com/en/rest/about-the-rest-api/api-versions): GitHub deprecated `2022-11-28`, sunset 2028-03-10.
 A new pipeline needs its line in `schedules.json` and its repo added to the App's installation.
